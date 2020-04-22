@@ -1,8 +1,25 @@
-.App {
-  text-align: center;
-  margin: 1em;
+html,
+body,
+#root {
+  height: 100%;
+  background-color: hsl(240, 50%, 10%);
+  color: hsl(0, 100%, 90%);
 }
-
+.App {
+  height: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 1em;
+}
+section:nth-child(2) {
+  margin-top: 1em;
+}
+.bpm-display {
+  font-size: 3em;
+  font-weight: bold;
+}
 .controls-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -17,11 +34,11 @@
 .button {
   font-family: monospace;
   font-weight: bold;
-  font-size: 1.5em;
   border: 1px solid orange;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0.55em 0;
 }
 .button:hover {
   cursor: pointer;

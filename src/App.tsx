@@ -6,7 +6,7 @@ const synth = new MembraneSynth({
   octaves: 1.08,
   pitchDecay: 0.0125,
   envelope: { release: 0.2 },
-}).toMaster();
+}).toDestination();
 
 new Loop((time) => {
   synth.triggerAttackRelease('C5', '32n');
@@ -64,7 +64,7 @@ function App() {
   return (
     <div className='App'>
       <section>
-        <h1>{bpm}</h1>
+        <div className='bpm-display'>{bpm}</div>
       </section>
       <section>
         <div className='controls-container'>
