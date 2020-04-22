@@ -15,8 +15,11 @@ new Loop((time) => {
 function App() {
   const [bpm, setBpm] = useState(120);
   const [isPlaying, setPlaying] = useState(false);
+  const [buttonPressed, setButtonPressed] = useState(null);
 
-  const handleKeyPress = useCallback(({ key, keyCode }) => {
+  const handleKeyPress = useCallback(({ key }) => {
+    if (key === ' ') key = 'Space';
+    console.log({ key });
     switch (key) {
       case 'ArrowUp':
         setBpm((value) => value + 1);
@@ -30,10 +33,16 @@ function App() {
       case 'ArrowLeft':
         setBpm((value) => value - 10);
         break;
+      case 'Space':
+        togglePlay();
+        break;
       default:
         break;
     }
-    if (keyCode === 32) togglePlay();
+    setButtonPressed(key);
+    setTimeout(() => {
+      setButtonPressed(null);
+    }, 100);
   }, []);
 
   useEffect(() => {
@@ -60,33 +69,46 @@ function App() {
       </section>
       <section>
         <div className='controls-container'>
-          <div className='left-side spacebar button' onClick={togglePlay}>
+          <div
+            className={`left-side Space button ${
+              buttonPressed === 'Space' ? 'pressed' : null
+            }`}
+            onClick={() => handleKeyPress({ key: 'Space' })}
+          >
             {isPlaying ? 'Stop' : 'Start'}
           </div>
           <div className='right-side'>
             <div className='blank'></div>
             <div
               onClick={() => handleKeyPress({ key: 'ArrowUp' })}
-              className='arrow-key button ArrowUp'
+              className={`ArrowUp button ${
+                buttonPressed === 'ArrowUp' ? 'pressed' : null
+              }`}
             >
               {'\u25B2'} +1
             </div>
             <div className='blank'></div>
             <div
               onClick={() => handleKeyPress({ key: 'ArrowLeft' })}
-              className='arrow-key button ArrowLeft'
+              className={`ArrowLeft button ${
+                buttonPressed === 'ArrowLeft' ? 'pressed' : null
+              }`}
             >
               {`\u25C0`} -10
             </div>
             <div
               onClick={() => handleKeyPress({ key: 'ArrowDown' })}
-              className='arrow-key button ArrowDown'
+              className={`ArrowDown button ${
+                buttonPressed === 'ArrowDown' ? 'pressed' : null
+              }`}
             >
               {'\u25BC'} -1
             </div>
             <div
               onClick={() => handleKeyPress({ key: 'ArrowRight' })}
-              className='arrow-key button ArrowRight'
+              className={`ArrowRight button ${
+                buttonPressed === 'ArrowRight' ? 'pressed' : null
+              }`}
             >
               {'\u25B6'} +10
             </div>
