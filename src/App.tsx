@@ -10,7 +10,7 @@ const synth = new MembraneSynth({
 
 new Loop((time) => {
   synth.triggerAttackRelease('C5', '32n');
-}, '4n').start(0);
+}, '4n').start();
 
 function App() {
   const [bpm, setBpm] = useState(120);
@@ -19,7 +19,6 @@ function App() {
 
   const handleKeyPress = useCallback(({ key }) => {
     if (key === ' ') key = 'Space';
-    console.log({ key });
     switch (key) {
       case 'ArrowUp':
         setBpm((value) => value + 1);
