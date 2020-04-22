@@ -15,7 +15,8 @@
         "--remote-debugging-port=9222",
         "--disable-features=AutoplayIgnoreWebAudio"
       ],
-      "userDataDir": "/home/doppler/Code/.chromium-user-data"
+      "userDataDir": "/home/doppler/Code/.chromium-user-data",
+      "auto": true
     }
   ]
 }
