@@ -55,10 +55,44 @@ function App() {
 
   return (
     <div className='App'>
-      <div>
+      <section>
         <h1>{bpm}</h1>
-        <button onClick={togglePlay}>{isPlaying ? 'Stop' : 'Start'}</button>
-      </div>
+      </section>
+      <section>
+        <div className='controls-container'>
+          <div className='left-side spacebar button' onClick={togglePlay}>
+            {isPlaying ? 'Stop' : 'Start'}
+          </div>
+          <div className='right-side'>
+            <div className='blank'></div>
+            <div
+              onClick={() => handleKeyPress({ key: 'ArrowUp' })}
+              className='arrow-key button ArrowUp'
+            >
+              {'\u25B2'} +1
+            </div>
+            <div className='blank'></div>
+            <div
+              onClick={() => handleKeyPress({ key: 'ArrowLeft' })}
+              className='arrow-key button ArrowLeft'
+            >
+              {`\u25C0`} -10
+            </div>
+            <div
+              onClick={() => handleKeyPress({ key: 'ArrowDown' })}
+              className='arrow-key button ArrowDown'
+            >
+              {'\u25BC'} -1
+            </div>
+            <div
+              onClick={() => handleKeyPress({ key: 'ArrowRight' })}
+              className='arrow-key button ArrowRight'
+            >
+              {'\u25B6'} +10
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
