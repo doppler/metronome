@@ -1,23 +1,30 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Transport, Loop, MembraneSynth } from 'tone';
+// import { Transport, Loop, MembraneSynth } from 'tone';
+import * as Tone from 'tone';
 import './App.css';
 
-const synth = new MembraneSynth({
+const synth = new Tone.MembraneSynth({
   octaves: 1.08,
   pitchDecay: 0.0125,
   envelope: { release: 0.2 },
 }).toDestination();
 
-new Loop((time) => {
+new Tone.Loop((time) => {
   synth.triggerAttackRelease('C5', '32n');
-}, '4n').start();
+}, '4n').start(0);
+Tone.Transport.stop();
 
 function App() {
+  const [haveSatisfiedUserInteraction, setSatisfiedUserInteraction] = useState(
+    false
+  );
   const [bpm, setBpm] = useState(120);
   const [isPlaying, setPlaying] = useState(false);
   const [buttonPressed, setButtonPressed] = useState(null);
 
   const handleKeyPress = useCallback(({ key }) => {
+    // rename ' ' key to Space so we can use it as a
+    // className target in the DOM
     if (key === ' ') key = 'Space';
     switch (key) {
       case 'ArrowUp':
@@ -50,14 +57,20 @@ function App() {
   }, [handleKeyPress]);
 
   useEffect(() => {
-    isPlaying ? Transport.start() : Transport.stop();
+    isPlaying ? Tone.Transport.start() : Tone.Transport.stop();
   }, [isPlaying]);
 
   useEffect(() => {
-    Transport.bpm.value = bpm;
+    Tone.Transport.bpm.value = bpm;
   }, [bpm]);
 
   const togglePlay = () => {
+    // satisfy browser's requirement for user interaction
+    // so AudioContext will be allowed to start
+    if (!haveSatisfiedUserInteraction) {
+      Tone.start();
+      setSatisfiedUserInteraction(true);
+    }
     setPlaying((prevState) => !prevState);
   };
 
