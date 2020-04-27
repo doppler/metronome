@@ -2,6 +2,17 @@ import React, { useState, useEffect, useCallback } from 'react';
 import * as Tone from 'tone';
 import './App.css';
 
+const synth = new Tone.MembraneSynth({
+  octaves: 1.08,
+  pitchDecay: 0.0125,
+  envelope: { release: 0.2 },
+}).toDestination();
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const loop = new Tone.Loop((time) => {
+  synth.triggerAttackRelease('C6', '32n', time);
+}, '4n').start();
+
 function App() {
   const [haveSatisfiedUserInteraction, setSatisfiedUserInteraction] = useState(
     false
@@ -14,17 +25,6 @@ function App() {
     // satisfy browser's requirement for user interaction
     // so AudioContext will be allowed to start
     if (!haveSatisfiedUserInteraction) {
-      const synth = new Tone.MembraneSynth({
-        octaves: 1.08,
-        pitchDecay: 0.0125,
-        envelope: { release: 0.2 },
-      }).toDestination();
-
-      new Tone.Loop((time) => {
-        synth.triggerAttackRelease('C6', '32n');
-      }, '4n').start();
-      Tone.Transport.stop();
-
       Tone.start();
       setSatisfiedUserInteraction((prevState) => !prevState);
     }
