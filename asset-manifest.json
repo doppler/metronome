@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/metronome/static/css/main.3a0b1b80.chunk.css",
-    "main.js": "/metronome/static/js/main.34fff9bb.chunk.js",
-    "main.js.map": "/metronome/static/js/main.34fff9bb.chunk.js.map",
+    "main.js": "/metronome/static/js/main.d1171449.chunk.js",
+    "main.js.map": "/metronome/static/js/main.d1171449.chunk.js.map",
     "runtime-main.js": "/metronome/static/js/runtime-main.363b34b6.js",
     "runtime-main.js.map": "/metronome/static/js/runtime-main.363b34b6.js.map",
-    "static/js/2.87cee6b9.chunk.js": "/metronome/static/js/2.87cee6b9.chunk.js",
-    "static/js/2.87cee6b9.chunk.js.map": "/metronome/static/js/2.87cee6b9.chunk.js.map",
+    "static/js/2.c9bc245c.chunk.js": "/metronome/static/js/2.c9bc245c.chunk.js",
+    "static/js/2.c9bc245c.chunk.js.map": "/metronome/static/js/2.c9bc245c.chunk.js.map",
     "index.html": "/metronome/index.html",
-    "precache-manifest.3ca1ec3f2c3b25519d542a90a0459f7f.js": "/metronome/precache-manifest.3ca1ec3f2c3b25519d542a90a0459f7f.js",
+    "precache-manifest.fa900212a8d76a1363da105af3ba5f3c.js": "/metronome/precache-manifest.fa900212a8d76a1363da105af3ba5f3c.js",
     "service-worker.js": "/metronome/service-worker.js",
     "static/css/main.3a0b1b80.chunk.css.map": "/metronome/static/css/main.3a0b1b80.chunk.css.map",
-    "static/js/2.87cee6b9.chunk.js.LICENSE.txt": "/metronome/static/js/2.87cee6b9.chunk.js.LICENSE.txt"
+    "static/js/2.c9bc245c.chunk.js.LICENSE.txt": "/metronome/static/js/2.c9bc245c.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.363b34b6.js",
-    "static/js/2.87cee6b9.chunk.js",
+    "static/js/2.c9bc245c.chunk.js",
     "static/css/main.3a0b1b80.chunk.css",
-    "static/js/main.34fff9bb.chunk.js"
+    "static/js/main.d1171449.chunk.js"
   ]
 }
