@@ -8,18 +8,30 @@ const synth = new Tone.MembraneSynth({
   envelope: { release: 0.2 },
 }).toDestination();
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const loop = new Tone.Loop((time) => {
-  synth.triggerAttackRelease('C6', '32n', time);
-}, '4n').start();
+const initialSequence = new Tone.Sequence(
+  (time, note) => {
+    console.log({ note });
+    synth.triggerAttackRelease(note, '32n');
+  },
+  ['E6', 'C6', 'C6', 'C6'],
+  '4n'
+);
 
 function App() {
   const [haveSatisfiedUserInteraction, setSatisfiedUserInteraction] = useState(
     false
   );
   const [bpm, setBpm] = useState(120);
+  const [stepCount, setStepCount] = useState(4);
+  const [sequence, setSequence] = useState(initialSequence);
   const [isPlaying, setPlaying] = useState(false);
   const [buttonPressed, setButtonPressed] = useState(null);
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const loop = new Tone.Loop((time) => {
+    // synth.triggerAttackRelease('C6', '32n', time);
+    sequence.start(time);
+  }, '1n').start();
 
   const togglePlay = useCallback(() => {
     // satisfy browser's requirement for user interaction
@@ -82,6 +94,25 @@ function App() {
     window.localStorage.setItem('bpm', bpm.toString());
   }, [bpm]);
 
+  // useEffect(() => {
+  //   setSequence(
+  //     new Tone.Sequence(
+  //       (time, note) => {
+  //         console.log({ note });
+  //         synth.triggerAttackRelease(note, '32n');
+  //       },
+  //       ['E6', Array(stepCount - 1).fill('C6')],
+  //       '4n'
+  //     )
+  //   );
+  // }, [stepCount]);
+
+  const handleStepCountChange = (
+    event: React.SyntheticEvent<HTMLInputElement>
+  ) => {
+    setStepCount(Number(event.currentTarget.value));
+  };
+
   return (
     <div className='App'>
       <section>
@@ -132,6 +163,19 @@ function App() {
             >
               {'\u25B6'} +10
             </div>
+          </div>
+          <div>{stepCount}</div>
+          <div>
+            {isPlaying ? null : (
+              <input
+                onChange={handleStepCountChange}
+                className='stepCount'
+                type='range'
+                min={2}
+                max={8}
+                value={stepCount}
+              />
+            )}
           </div>
         </div>
       </section>
