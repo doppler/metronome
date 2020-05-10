@@ -64,6 +64,11 @@ function App() {
   );
 
   useEffect(() => {
+    const bpm = window.localStorage.getItem('bpm');
+    if (bpm) setBpm(Number(bpm));
+  }, []);
+
+  useEffect(() => {
     window.addEventListener('keydown', handleKeyPress);
     return () => window.removeEventListener('keydown', handleKeyPress);
   }, [handleKeyPress]);
@@ -74,6 +79,7 @@ function App() {
 
   useEffect(() => {
     Tone.Transport.bpm.value = bpm;
+    window.localStorage.setItem('bpm', bpm.toString());
   }, [bpm]);
 
   return (
