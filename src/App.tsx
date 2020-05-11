@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import * as Tone from 'tone';
 import './App.css';
 
@@ -10,7 +10,6 @@ const synth = new Tone.MembraneSynth({
 
 const initialSequence = new Tone.Sequence(
   (time, note) => {
-    console.log({ note });
     synth.triggerAttackRelease(note, '32n');
   },
   ['E6', 'C6', 'C6', 'C6'],
@@ -23,15 +22,17 @@ function App() {
   );
   const [bpm, setBpm] = useState(120);
   const [stepCount, setStepCount] = useState(4);
-  const [sequence, setSequence] = useState(initialSequence);
+  const sequence = useRef(initialSequence);
   const [isPlaying, setPlaying] = useState(false);
   const [buttonPressed, setButtonPressed] = useState(null);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const loop = new Tone.Loop((time) => {
-    // synth.triggerAttackRelease('C6', '32n', time);
-    sequence.start(time);
-  }, '1n').start();
+  const loop = useRef(
+    new Tone.Loop((time) => {
+      // synth.triggerAttackRelease('C6', '32n', time);
+      sequence.current.start(time);
+    }, '1n').start()
+  );
 
   const togglePlay = useCallback(() => {
     // satisfy browser's requirement for user interaction
@@ -94,18 +95,9 @@ function App() {
     window.localStorage.setItem('bpm', bpm.toString());
   }, [bpm]);
 
-  // useEffect(() => {
-  //   setSequence(
-  //     new Tone.Sequence(
-  //       (time, note) => {
-  //         console.log({ note });
-  //         synth.triggerAttackRelease(note, '32n');
-  //       },
-  //       ['E6', Array(stepCount - 1).fill('C6')],
-  //       '4n'
-  //     )
-  //   );
-  // }, [stepCount]);
+  useEffect(() => {
+    sequence.current.events = ['E6', ...Array(stepCount - 1).fill('C6')];
+  }, [stepCount]);
 
   const handleStepCountChange = (
     event: React.SyntheticEvent<HTMLInputElement>
