@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "247a4af4b694dc67a9a10a257bcaa4e8",
+    "revision": "475dd0a580cb57538dbd12a2d1aca297",
     "url": "/metronome/index.html"
   },
   {
